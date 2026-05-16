@@ -5,27 +5,14 @@ import LoginForm from "./LoginForm";
 import UserPanel from "./UserPanel";
 
 function App() {
-    const emptyUser = {email: "", meetings: [""]};
-    const [users, setUsers] = useState([])
-    const [loggedIn, setLoggedIn] = useState(emptyUser)
+    const [loggedIn, setLoggedIn] = useState("")
 
     const login = (email) => {
-        let existingUser = users.find((u) => u.email === email);
-        if (!existingUser) {
-            existingUser = {email, meetings: []}
-            setUsers([...users, existingUser]);
-        }
-        setLoggedIn(existingUser)
+        setLoggedIn(email)
     }
 
     const logout = () => {
-        setLoggedIn(emptyUser)
-    }
-
-    const handleNewMeeting = (meeting) => {
-        const existingUser = users.find(u => u.email === loggedIn.email);
-        existingUser.meetings.push(meeting)
-        setLoggedIn({...existingUser})
+        setLoggedIn("")
     }
 
     return (
