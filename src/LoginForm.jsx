@@ -2,9 +2,11 @@ import {useState} from "react";
 
 export default function LoginForm(props) {
     const [email, setEmail] = useState('');
+    let text = email.length < 5 ? "Ale masz krótki adres!" : `Twój e-mail to ${email}`
 
     return <div>
         <label>Zaloguj się e-mailem</label>
+        <h2>{text}</h2>
         <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
         <button type="button" onClick={() => props.onLogin(email)}>
             Wchodzę

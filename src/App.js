@@ -2,37 +2,28 @@ import './App.css';
 import "milligram";
 import {useState} from "react";
 import LoginForm from "./LoginForm";
+import UserPanel from "./UserPanel";
 
 function App() {
-    const [logged, setLogged] = useState(false)
-    const [email, setEmail] = useState("test.email@gmail.com")
-    let text = email.length < 5 ? "Ale masz krótki adres!" : `Twój e-mail to ${email}`
+    const [loggedIn, setLoggedIn] = useState("")
 
-    const handleChange = e => {
-        setEmail(e.target.value)
+    const login = (email) => {
+        setLoggedIn(email)
     }
 
-    const handleClick = () => {
-        if (!logged) {
-            window.alert(email)
-        }
-        setLogged(!logged)
-    }
-
-    const login = (t) => {
-        console.log(t)
+    const logout = () => {
+        setLoggedIn("")
     }
 
     return (
-        <LoginForm onLogin={login} hidden={logged}/>
-
-        // <>
-        //     <div>System do zapisu zdjęć</div>
-        //     <h2>{text}</h2>
-        //     <input type="text" value={email} onChange={handleChange} hidden={logged}/>
-        //     <div hidden={!logged}>Witaj {email}!</div>
-        //     <button onClick={handleClick}>{logged ? "Wyloguj" : "Wchodzę"}</button>
-        // </>
+        <div>
+            <h1>System do zapisów na zajęcia</h1>
+            {
+                loggedIn
+                    ? <UserPanel username={loggedIn} onLogout={logout}/>
+                    : <LoginForm onLogin={login}/>
+            }
+        </div>
     );
 }
 
