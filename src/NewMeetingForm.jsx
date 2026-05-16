@@ -1,12 +1,12 @@
 import {useState} from "react";
 
-export default function NewMeetingForm({onSubmit}) {
+export default function NewMeetingForm({user, onSubmit}) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
     function submit(event) {
         event.preventDefault();
-        onSubmit({title, description});
+        onSubmit({title, description, organizer: user, signedIn:[]});
     }
 
     return (

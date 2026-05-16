@@ -1,39 +1,48 @@
 import './App.css';
 import "milligram";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import LoginForm from "./LoginForm";
 import UserPanel from "./UserPanel";
 
 function App() {
-    const emptyUser = {email: "", meetings: [""]};
-    const [users, setUsers] = useState([])
-    const [loggedIn, setLoggedIn] = useState(emptyUser)
+    const [meetings, setMeetings] = useState([])
+    const [loggedIn, setLoggedIn] = useState("")
 
     const login = (email) => {
-        let existingUser = users.find((u) => u.email === email);
-        if (!existingUser) {
-            existingUser = {email, meetings: []}
-            setUsers([...users, existingUser]);
-        }
-        setLoggedIn(existingUser)
+        setLoggedIn(email)
     }
 
     const logout = () => {
-        setLoggedIn(emptyUser)
+        setLoggedIn("")
+    }
+
+    const readMeeting = (meeting) => {
+        return meetings.find(m => m.organizer === meeting.organizer);
     }
 
     const handleNewMeeting = (meeting) => {
-        const existingUser = users.find(u => u.email === loggedIn.email);
-        existingUser.meetings.push(meeting)
-        setLoggedIn({...existingUser})
+        const nextMeetings = [...meetings, meeting];
+        setMeetings(nextMeetings);
     }
+
+
+    const handleUpdateMeeting = (meeting) => {
+        let find = meetings.find(m => m.organizer === meeting.organizer);
+        find = meeting;
+
+        setMeetings(nextMeetings);
+    }
+
+    useEffect(() => {
+        console.log("test")
+    }, [meetings]);
 
     return (
         <div>
             <h1>System do zapisów na zajęcia</h1>
             {
-                loggedIn.email
-                    ? <UserPanel user={loggedIn} onLogout={logout} onNewMeeting={handleNewMeeting}/>
+                loggedIn
+                    ? <UserPanel user={loggedIn} meetings={meetings} onLogout={logout} onNewMeeting={handleNewMeeting}/>
                     : <LoginForm onLogin={login}/>
             }
         </div>
