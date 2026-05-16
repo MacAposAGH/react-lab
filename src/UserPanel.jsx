@@ -1,13 +1,13 @@
 import MeetingsPage from "./MeetingsPage";
 
-export default function UserPanel(props) {
+export default function UserPanel({user, onNewMeeting, onLogout}) {
     return (
         <>
-            <div>Witaj {props.username}!</div>
-            <button type="button" onClick={() => props.onLogout()}>
+            <div>Witaj {user.email}!</div>
+            <MeetingsPage meetings={user.meetings} onNewMeeting={m => onNewMeeting(m)}/>
+            <button type="button" onClick={() => onLogout()}>
                 Wychodzę
             </button>
-            <MeetingsPage/>
         </>
     )
 }
