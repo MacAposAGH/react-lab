@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [ email, setEmail] = useState("test.email@gmail.com")
+
+    const handleChange = e => {
+        setEmail(e.target.value)
+    }
+
+    let text = email.length < 5 ? "Ale masz krótki adres!" : `Twój e-mail to ${email}`
+
+    return (
+        <>
+            <div>System do zapisu zdjęć</div>
+            <h2>{text}</h2>
+            <input type="text" value={email} onChange={handleChange}/>
+        </>
+    );
 }
 
 export default App;
